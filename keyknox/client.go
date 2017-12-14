@@ -62,7 +62,7 @@ func (c *KeyknoxClient) Eval(req EvalReq) (EvalResp, error) {
 
 type RotateKeyResp struct {
 	Delta                    []byte `json:"delta"`
-	NewResult                []byte `json:"new_result"`
+	NewP                     []byte `json:"new_p"`
 	PreviousSecretKeyVersion int    `json:"previous_secret_key_version"`
 }
 

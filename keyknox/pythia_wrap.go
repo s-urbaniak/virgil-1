@@ -80,9 +80,9 @@ func (prf PRF) Verify(blindedMsg []byte, tweak string, result []byte, proof Proo
 	return errors.Wrap(err, "PRF.Verify")
 }
 
-func (prf PRF) Rotate(keySelector, masterKey, clientKey, newKeySelector, newMasterKey, newClient []byte) (delta []byte, err error) {
-	d, _ := pythia.GetDelta(keySelector, masterKey, clientKey, newKeySelector, newMasterKey, newClient)
-	return d.Bytes(), nil
+func (prf PRF) Rotate(keySelector, masterKey, clientKey, newKeySelector, newMasterKey, newClient []byte) ([]byte, []byte, error) {
+	delta, newP := pythia.GetDelta(keySelector, masterKey, clientKey, newKeySelector, newMasterKey, newClient)
+	return delta.Bytes(), newP.Marshal(), nil
 }
 
 func (prf PRF) Update(oldValue []byte, delta []byte) ([]byte, error) {
