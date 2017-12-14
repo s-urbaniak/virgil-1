@@ -58,7 +58,7 @@ func (prf PRF) Prove(blindedMsg, tilde, keyBound, result []byte) (proof Proof, e
 }
 
 // func (prf PRF)Verify(x *bn256.G1, t []byte, y *bn256.GT, p *bn256.G1, c, u *big.Int) error {
-func (prf PRF) Verify(blindedMsg []byte, tweak string, result []byte, proof Proof) error {
+func (prf PRF) Verify(blindedMsg []byte, tweak []byte, result []byte, proof Proof) error {
 	var (
 		x bn256.G1
 		y bn256.GT
@@ -76,7 +76,7 @@ func (prf PRF) Verify(blindedMsg []byte, tweak string, result []byte, proof Proo
 	if err != nil {
 		return errors.Wrapf(err, "PRF.Verify: p should be bn256.G1 marshaled data")
 	}
-	err = pythia.Verify(&x, []byte(tweak), &y, &p, new(big.Int).SetBytes(proof.C), new(big.Int).SetBytes(proof.U))
+	err = pythia.Verify(&x, tweak, &y, &p, new(big.Int).SetBytes(proof.C), new(big.Int).SetBytes(proof.U))
 	return errors.Wrap(err, "PRF.Verify")
 }
 
