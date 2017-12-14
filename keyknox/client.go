@@ -15,13 +15,13 @@ type KeyknoxClient struct {
 }
 
 type EvalReq struct {
-	tweak       string
+	tweak       []byte
 	blindedMsg  []byte
 	InlineProof bool
 	Version     int
 }
 
-func MakeEvalReq(tweak string, blindedMsg []byte) EvalReq {
+func MakeEvalReq(tweak []byte, blindedMsg []byte) EvalReq {
 	return EvalReq{
 		tweak:      tweak,
 		blindedMsg: blindedMsg,
